@@ -1,39 +1,61 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Remote Config Gist
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+[![pub package](https://img.shields.io/pub/v/remote_config_gist.svg)](https://pub.dartlang.org/packages/remote_config_gist)
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+A Flutter Package that use github gist for remote config
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Installing
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  remote_config_gist: ^1.0.0
 ```
 
-## Additional information
+## ⚡️ Import
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+import 'package:remote_config_gist/remote_config_gist.dart'
+```
+
+## 🎮 How To Use
+
+```dart
+// Example config type for type safety
+class AppConfig {
+static const String welcomeMessage = 'welcome_message';
+static const String isFeatureEnabled = 'is_feature_enabled';
+static const String themeColor = 'theme_color';
+}
+final config = RemoteConfigGist(
+gistId: '8472c3ccd8d90471672eeefc123cd054',
+filename: 'config.json',
+defaultConfig: {
+AppConfig.welcomeMessage: 'Welcome to the app!',
+AppConfig.isFeatureEnabled: false,
+AppConfig.themeColor: '#FF0000',
+},
+fetchInterval: const Duration(minutes: 30),
+timeout: const Duration(seconds: 5),
+);
+// Initial fetch and activate
+await config.fetchConfig();
+await config.activate();
+// Get values
+String message = config.getValue<String>(AppConfig.welcomeMessage, 'Default Welcome');
+bool isEnabled = config.getValue<bool>(AppConfig.isFeatureEnabled, false);
+```
+
+## 🚀 Features
+
+- Dynamic welcome message updates
+- Feature flag management  
+- Remote configuration refresh
+- Cross-platform support
+
+## 🐛 Bugs/Requests
+
+If you encounter any problems feel free to open an issue. If you feel the library is missing a feature, please raise a ticket on Github and I'll look into it. Pull requests are also welcome.
+
+## ⭐️ License
+
+MIT License
