@@ -1,7 +1,10 @@
 name: remote_config_gist
-description: "A new Flutter package project."
-version: 0.0.1
-homepage: https://
+description: "A Flutter Package that use github gist for remote config"
+version: 1.0.0
+homepage: https://github.com/abakermi/remote_config_gist
+topics: 
+ - config
+ - remote
 
 environment:
   sdk: ^3.5.1
